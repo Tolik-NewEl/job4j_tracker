@@ -16,6 +16,8 @@ public class Matches {
                 turn = !turn;
                 count = count - matches;
                 System.out.println("Осталось " + count + " спичек");
+            } else {
+                System.out.println(player + " введено некорректное значение!");
             }
         }
         if (!turn) {
