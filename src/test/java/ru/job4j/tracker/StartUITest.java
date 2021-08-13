@@ -84,15 +84,16 @@ public class StartUITest {
     @Test
     public void whenFindById() {
         Output out = new StubOutput();
-        Input in = new StubInput(
-                new String[] {"0", "1", "1"}
-        );
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("New item"));
+        String id = String.valueOf(item.getId());
         UserAction[] actions = {
                 new FindIDAction(out),
                 new ExitAction()
         };
+        Input in = new StubInput(
+                new String[] {"0", id, "1"}
+        );
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
                 "Menu." + System.lineSeparator() +
