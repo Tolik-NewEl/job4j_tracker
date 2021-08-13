@@ -6,6 +6,6 @@ public class FactTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void whenNless0() {
-        Fact.calc(-1);
+        new Fact().calc(-1);
     }
 }

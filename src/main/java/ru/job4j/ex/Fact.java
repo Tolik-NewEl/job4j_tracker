@@ -5,7 +5,7 @@ public class Fact {
         new Fact().calc(-1);
     }
 
-    public static int calc(int n) {
+    public int calc(int n) {
         if (n < 0) {
             throw new IllegalArgumentException("N could not be less then 0");
         }
