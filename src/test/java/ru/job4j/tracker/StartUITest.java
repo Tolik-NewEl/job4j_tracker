@@ -4,6 +4,9 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -165,5 +168,44 @@ public class StartUITest {
                         + "0. Exit Program" + ln
                 )
         );
+    }
+
+    @Test
+    public void whenSorting() {
+        List<Item> items = Arrays.asList(
+                new Item(5, "test1"),
+                new Item(1, "test3"),
+                new Item(3, "test5")
+        );
+        List<Item> upSorting = Arrays.asList(
+                new Item(1, "test3"),
+                new Item(3, "test5"),
+                new Item(5, "test1")
+        );
+        List<Item> downSorting = Arrays.asList(
+                new Item(5, "test1"),
+                new Item(3, "test5"),
+                new Item(1, "test3")
+        );
+        Collections.sort(items);
+        assertThat(items, is(upSorting));
+        Collections.reverse(items);
+        assertThat(items, is(downSorting));
+    }
+
+    @Test
+    public void whenSortWithComparator() {
+        List<Item> items = Arrays.asList(
+                new Item(1, "test3"),
+                new Item(3, "test5"),
+                new Item(5, "test1")
+        );
+        List<Item> expected = Arrays.asList(
+                new Item(5, "test1"),
+                new Item(1, "test3"),
+                new Item(3, "test5")
+        );
+        Collections.sort(items, new ItemComparator());
+        assertThat(items, is(expected));
     }
 }
