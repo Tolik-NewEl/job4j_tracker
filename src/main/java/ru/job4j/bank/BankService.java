@@ -28,8 +28,8 @@ public class BankService {
         for (User passports : users.keySet()) {
             if (passports.getPassport().equals(passport)) {
                 rsl = passports;
+                break;
             }
-            break;
         }
         return rsl;
     }
@@ -42,6 +42,7 @@ public class BankService {
             for (Account account : accounts) {
                 if (account.getRequisite().equals(requisite)) {
                     rsl = account;
+                    break;
                 }
             }
         }
@@ -53,13 +54,11 @@ public class BankService {
         boolean rsl = false;
         Account srcBalance = findByRequisite(srcPassport, srcRequisite);
         Account destBalance = findByRequisite(destPassport, destRequisite);
-        if (srcBalance != null && destBalance != null) {
-            if (srcBalance.getBalance() >= amount) {
+        if (srcBalance != null && destBalance != null && srcBalance.getBalance() >= amount) {
                 srcBalance.setBalance(srcBalance.getBalance() - amount);
                 destBalance.setBalance(destBalance.getBalance() + amount);
                 rsl = true;
             }
-        }
         return rsl;
     }
 }
