@@ -7,6 +7,7 @@ public class College {
         student.setGroup("X-102");
         student.setDataJoin("24.06.2021");
 
-        System.out.println(student.getFio() + " зачислен в группу " + student.getGroup() + ". Дата приказа " + student.getDataJoin());
+        System.out.println(student.getFio() + " зачислен в группу "
+                + student.getGroup() + ". Дата приказа " + student.getDataJoin());
     }
 }

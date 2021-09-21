@@ -13,6 +13,7 @@ public class Computer {
         this.ssd = ssd;
         this.cpu = cpu;
     }
+
     public Computer() {
     }
 
