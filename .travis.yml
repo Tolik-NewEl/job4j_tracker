@@ -18,3 +18,9 @@ notifications:
       - tsepushtanov@outlook.com
     on_success: never # default: change
     on_failure: always # default: always
+
+env:
+
+  global:
+
+    - CODECOV_TOKEN="3ab21e4f-d511-4292-a492-c5da183cc733"
