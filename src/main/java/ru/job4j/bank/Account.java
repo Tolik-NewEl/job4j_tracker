@@ -2,6 +2,13 @@ package ru.job4j.bank;
 
 import java.util.Objects;
 
+/**
+ * Класс описывает модель счета Account
+ * Включает в себя поля реквизитов и баланса счета,
+ * конструктор, их геттеры и сеттеры.
+ * @author Anatoliy Tsepushtanov
+ * @version 1.0
+ */
 public class Account {
     private String requisite;
     private double balance;
@@ -27,6 +34,10 @@ public class Account {
         this.balance = balance;
     }
 
+    /**
+     * Переопределение методов Equals и HashCode
+     * Сравнение производится по реквизитам
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {

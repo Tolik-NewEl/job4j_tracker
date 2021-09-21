@@ -2,6 +2,13 @@ package ru.job4j.bank;
 
 import java.util.Objects;
 
+/**
+ * Класс описывает модель пользователя User
+ * Включает в себя поля паспорта и имени пользователя,
+ * конструктор, их геттеры и сеттеры.
+ * @author Anatoliy Tsepushtanov
+ * @version 1.0
+ */
 public class User {
     private String passport;
     private String username;
@@ -27,6 +34,10 @@ public class User {
         this.username = username;
     }
 
+    /**
+     * Переопределение методов Equals и HashCode
+     * Сравнение производится по паспорту
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
