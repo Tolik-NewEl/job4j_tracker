@@ -208,4 +208,20 @@ public class StartUITest {
         Collections.sort(items, new ItemComparator());
         assertThat(items, is(expected));
     }
+
+    @Test
+    public void whenSortWithComparatorDesc() {
+        List<Item> items = Arrays.asList(
+                new Item(5, "test1"),
+                new Item(1, "test3"),
+                new Item(3, "test5")
+        );
+        List<Item> expected = Arrays.asList(
+                new Item(3, "test5"),
+                new Item(1, "test3"),
+                new Item(5, "test1")
+        );
+        Collections.sort(items, new ItemComparatorDesc());
+        assertThat(items, is(expected));
+    }
 }
