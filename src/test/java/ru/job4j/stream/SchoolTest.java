@@ -79,7 +79,7 @@ public class SchoolTest {
         School sc = new School();
         Predicate<Student> pr = s -> s.getScore() >= 70;
         List<Student> tmp = sc.collect(students, pr);
-        Map<String,Student> rsl = sc.studentMap(tmp);
+        Map<String, Student> rsl = sc.studentMap(tmp);
         Map<String, Student> expected = new HashMap<>();
         expected.put("Surname4", new Student(70, "Surname4"));
         expected.put("Surname6", new Student(80, "Surname6"));
