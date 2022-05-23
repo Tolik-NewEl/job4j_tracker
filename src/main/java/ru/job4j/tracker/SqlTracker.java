@@ -11,7 +11,8 @@ public class SqlTracker implements Store, AutoCloseable {
     private Connection cn;
 
     public void init() {
-        try (InputStream in = SqlTracker.class.getClassLoader().getResourceAsStream("app.properties")) {
+        try (InputStream in = SqlTracker.class.getClassLoader()
+                .getResourceAsStream("app.properties")) {
             Properties config = new Properties();
             config.load(in);
             Class.forName(config.getProperty("driver-class-name"));
@@ -34,7 +35,8 @@ public class SqlTracker implements Store, AutoCloseable {
 
     @Override
     public Item add(Item item) {
-        try (PreparedStatement ps = cn.prepareStatement("insert into item(name, created) values (?, ?)",
+        try (PreparedStatement ps
+                     = cn.prepareStatement("insert into item(name, created) values (?, ?)",
                 Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, item.getName());
             ps.setTimestamp(2, Timestamp.valueOf(item.getCreated()));
