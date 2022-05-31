@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import org.hamcrest.core.IsNull;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -54,61 +55,49 @@ public class SqlTrackerTest {
     @Test
     public void whenSaveItemAndFindByGeneratedIdThenMustBeTheSame() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item = new Item("item");
-        tracker.add(item);
+        Item item = tracker.add(new Item("item"));
         assertThat(tracker.findById(item.getId()), is(item));
     }
 
     @Test
     public void whenAddAndReplace() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item = new Item("item1");
-        tracker.add(item);
-        Item item2 = new Item("item2");
+        Item item = tracker.add(new Item("item1"));
+        Item item2 = tracker.add(new Item("item2"));
         assertTrue(tracker.replace(item.getId(), item2));
+        assertThat(tracker.findById(item.getId()).getName(), is("item2"));
     }
 
     @Test
     public void whenAddAndDelete() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item = new Item("item1");
-        tracker.add(item);
+        Item item = tracker.add(new Item("item1"));
         assertTrue(tracker.delete(item.getId()));
+        assertThat(tracker.findById(item.getId()), is(IsNull.nullValue()));
     }
 
     @Test
     public void whenFindByID() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item = new Item("item");
-        tracker.add(item);
+        Item item = tracker.add(new Item("item"));
         assertThat(tracker.findById(item.getId()), is(item));
     }
 
     @Test
     public void whenFindByName() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item1 = new Item("item1");
-        Item item2 = new Item("item2");
-        Item item3 = new Item("item1");
-        tracker.add(item1);
-        tracker.add(item2);
-        tracker.add(item3);
-        List<Item> rsl = tracker.findByName("item1");
-        List<Item> expect = List.of(item1, item3);
-        assertThat(rsl, is(expect));
+        Item item1 = tracker.add(new Item("item1"));
+        Item item2 = tracker.add(new Item("item2"));
+        Item item3 = tracker.add(new Item("item1"));
+        assertThat(tracker.findByName("item1"), is(List.of(item1, item3)));
     }
 
     @Test
     public void whenFindAll() {
         SqlTracker tracker = new SqlTracker(connection);
-        Item item1 = new Item("item1");
-        Item item2 = new Item("item2");
-        Item item3 = new Item("item3");
-        tracker.add(item1);
-        tracker.add(item2);
-        tracker.add(item3);
-        List<Item> rsl = tracker.findAll();
-        List<Item> expect = List.of(item1, item2, item3);
-        assertThat(rsl, is(expect));
+        Item item1 = tracker.add(new Item("item1"));
+        Item item2 = tracker.add(new Item("item2"));
+        Item item3 = tracker.add(new Item("item3"));
+        assertThat(tracker.findAll(), is(List.of(item1, item2, item3)));
     }
 }
