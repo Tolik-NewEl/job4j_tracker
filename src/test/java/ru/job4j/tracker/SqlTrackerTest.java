@@ -10,10 +10,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class SqlTrackerTest {
 
@@ -55,5 +57,58 @@ public class SqlTrackerTest {
         Item item = new Item("item");
         tracker.add(item);
         assertThat(tracker.findById(item.getId()), is(item));
+    }
+
+    @Test
+    public void whenAddAndReplace() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item = new Item("item1");
+        tracker.add(item);
+        Item item2 = new Item("item2");
+        assertTrue(tracker.replace(item.getId(), item2));
+    }
+
+    @Test
+    public void whenAddAndDelete() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item = new Item("item1");
+        tracker.add(item);
+        assertTrue(tracker.delete(item.getId()));
+    }
+
+    @Test
+    public void whenFindByID() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item = new Item("item");
+        tracker.add(item);
+        assertThat(tracker.findById(item.getId()), is(item));
+    }
+
+    @Test
+    public void whenFindByName() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item1 = new Item("item1");
+        Item item2 = new Item("item2");
+        Item item3 = new Item("item1");
+        tracker.add(item1);
+        tracker.add(item2);
+        tracker.add(item3);
+        List<Item> rsl = tracker.findByName("item1");
+        List<Item> expect = List.of(item1, item3);
+        assertThat(rsl, is(expect));
+    }
+
+    @Test
+    public void whenFindAll() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item item1 = new Item("item1");
+        Item item2 = new Item("item2");
+        Item item3 = new Item("item3");
+        tracker.add(item1);
+        tracker.add(item2);
+        tracker.add(item3);
+        List<Item> rsl = tracker.findAll();
+        List<Item> expect = List.of(item1, item2, item3);
+        assertThat(rsl, is(expect));
     }
 }
