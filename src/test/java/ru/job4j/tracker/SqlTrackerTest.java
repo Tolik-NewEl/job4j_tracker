@@ -63,7 +63,7 @@ public class SqlTrackerTest {
     public void whenAddAndReplace() {
         SqlTracker tracker = new SqlTracker(connection);
         Item item = tracker.add(new Item("item1"));
-        Item item2 = tracker.add(new Item("item2"));
+        Item item2 = new Item("item2");
         assertTrue(tracker.replace(item.getId(), item2));
         assertThat(tracker.findById(item.getId()).getName(), is("item2"));
     }
